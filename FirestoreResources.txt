@@ -55,3 +55,10 @@ service cloud.firestore {
     }
 }
 
+
+Controllare l'accesso a specifici campi:
+https://firebase.google.com/docs/firestore/security/rules-fields?hl=it
+
+https://fireship.io/snippets/firestore-rules-recipes/
+
+https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=it#web-modular-api_2
