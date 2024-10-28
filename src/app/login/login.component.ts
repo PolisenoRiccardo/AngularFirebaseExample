@@ -32,7 +32,7 @@ export class LoginComponent {
       const data = await this.GetUsersByCondition("age", ">=", 10, 5).subscribe(data => {
         const users = data;
         users.forEach(user => {
-          console.log(user.age, user.email);
+          console.log(user.age, user["email"]);
         });
       });
     } catch (error) {
