@@ -1,0 +1,57 @@
+Tipi di richieste(read):
+- get: lettura di uno specifico documento
+- list: query in una collezione
+
+Tipi di richieste(write):
+- create: creazione dei documenti
+- update: aggiornamento dei documenti
+- delete: cancellazione dei documenti
+
+
+//Database vulnerabile
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+        allow read, write, get, list, delete;
+        //oppure allow read, write, get, list, delete: if true;
+    }
+  }
+}
+
+//Database in lock down
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+        allow read, write, get, list, delete: if false;
+    }
+  }
+}
+
+//Database in lock down per i non autenticati
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+        allow read, write, get, list, delete: if request.auth != null;
+    }
+  }
+}
+
+//Solo l'utente creatore puo modificare i suoi dati
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+        allow read: if isSignedIn();
+        allow write: if isOwner(userId)
+    }
+  }
+
+    //funzioni "Utils"
+    function isSignedIn() {
+        return request.auth != null;
+    }
+
+    function isOwner(userId){
+        return request.auth.uid == userId
+    }
+}
+
