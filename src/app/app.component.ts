@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FirestoreModule } from '@angular/fire/firestore';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword, User } from 'firebase/auth';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'AngularFirebase';
+
 }
