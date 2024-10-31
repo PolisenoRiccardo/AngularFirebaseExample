@@ -19,8 +19,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    provideFirebaseApp( () => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore()),
+    provideFirebaseApp( () => initializeApp(environment.firebaseConfig)), 
+    provideFirestore(() => getFirestore()), 
     provideAuth(() => getAuth())
   ],
   providers: [ 
