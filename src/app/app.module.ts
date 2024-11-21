@@ -9,11 +9,15 @@ import { LoginComponent } from './login/login.component';
 import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AppRoutingModule } from './app-routing.module';
+import { SignupComponent } from './signup/signup.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +25,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     FormsModule,
     provideFirebaseApp( () => initializeApp(environment.firebaseConfig)), 
     provideFirestore(() => getFirestore()), 
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()), AppRoutingModule
   ],
   providers: [ 
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
