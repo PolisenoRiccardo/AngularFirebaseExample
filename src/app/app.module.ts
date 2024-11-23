@@ -11,13 +11,17 @@ import {initializeApp, provideFirebaseApp} from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupComponent } from './signup/signup.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PostComponent } from './post/post.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ProfileComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
