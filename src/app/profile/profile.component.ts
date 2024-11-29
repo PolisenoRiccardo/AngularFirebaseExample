@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Post } from '../post.model';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

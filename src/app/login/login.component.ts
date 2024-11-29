@@ -4,6 +4,9 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User 
 import { updateProfile } from 'firebase/auth';
 import { Firestore, getDoc, deleteDoc, doc, limit, setDoc, collection, query, getDocs, where, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { setPersistence, browserSessionPersistence } from 'firebase/auth';
+
 
 @Component({
   selector: 'app-login',
@@ -14,23 +17,43 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   message: string = '';
-
+  logged : boolean = false;
   usernameSignUp: string = '';
   emailSignUp: string = '';
   passwordSignUp: string = '';
   messageSignUp: string = '';
 
-  constructor(private auth: Auth, private firestore: Firestore) {}
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router,
+     private route: ActivatedRoute) {
+      
+     }
+
+  go() {
+    this.router.navigate([`../profile`], { relativeTo: this.route });
+  }
 
   //#region LOGIN
   async Login() {
+    
     try {
+
+      if(this.auth.currentUser != null) {
+        console.log('Already logged in, User:', this.auth.currentUser);
+        return;
+      }
+      
+      await setPersistence(this.auth, browserSessionPersistence);
+
       const userCredential = await signInWithEmailAndPassword(this.auth, this.email, this.password);
       const user: AngularFireUser = userCredential.user;
       this.message = `Login successful! Welcome, ${user.displayName}`;
+      this.logged = true;
+      this.go();
       console.log('User:', user);
+      
     } catch (error) {
       this.message = 'Login failed. Please check your credentials.';
+      this.logged = false;
       console.error('Login error:', error);
     }
   }
